@@ -1,5 +1,5 @@
 [workspace]
 members = [
-    "src/token_transfer_backend"
+    "src/crowdfunding_backend"
 ]
 resolver = "2"
