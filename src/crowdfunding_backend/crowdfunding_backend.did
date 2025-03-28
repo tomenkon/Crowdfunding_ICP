@@ -1,0 +1,36 @@
+type Account = record { owner : principal; subaccount : opt vec nat8 };
+type BlockIndex = nat;
+type Contribution = record {
+  amount : nat;
+  timestamp : nat64;
+  contributor : principal;
+};
+type Project = record {
+  id : text;
+  owner : principal;
+  title : text;
+  description : text;
+  funding_goal : nat;
+  current_amount : nat;
+  deadline : nat64;
+  contributors : vec Contribution;
+  status : ProjectStatus;
+  created_at : nat64;
+};
+type ProjectStatus = variant { Active; Funded; Expired };
+type Result = variant { Ok : BlockIndex; Err : text };
+type Result_1 = variant { Ok : text; Err : text };
+type Result_2 = variant { Ok : Project; Err : text };
+type TransferArgs = record { to_account : Account; amount : nat };
+
+service : {
+  claim_refund : (text) -> (Result);
+  contribute : (text, nat) -> (Result);
+  create_project : (text, text, nat, nat64) -> (Result_1);
+  get_project : (text) -> (Result_2) query;
+  get_user_contributions : (principal) -> (vec record { text; Project; nat }) query;
+  get_user_projects : (principal) -> (vec Project) query;
+  list_projects : () -> (vec Project) query;
+  release_funds : (text) -> (Result);
+  transfer : (TransferArgs) -> (Result);
+}

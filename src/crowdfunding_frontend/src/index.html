@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICP Crowdfunding Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 20px;
+        }
+        .project-card {
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .progress {
+            height: 10px;
+        }
+        .auth-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header d-flex justify-content-between align-items-center">
+            <h1 class="display-4">ICP Crowdfunding</h1>
+            <div id="auth-section" class="auth-section">
+                <div id="principal-display">Not connected</div>
+                <button id="auth-button" class="btn btn-primary mt-2">Connect</button>
+            </div>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Create New Project</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="create-project-form">
+                            <div class="mb-3">
+                                <label for="project-title" class="form-label">Project Title</label>
+                                <input type="text" class="form-control" id="project-title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="project-description" class="form-label">Description</label>
+                                <textarea class="form-control" id="project-description" rows="3" required></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="funding-goal" class="form-label">Funding Goal (Tokens)</label>
+                                    <input type="number" class="form-control" id="funding-goal" min="1" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="duration" class="form-label">Duration (Days)</label>
+                                    <input type="number" class="form-control" id="duration" min="1" max="90" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">Create Project</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="mb-4">Active Projects</h2>
+        <div class="row" id="projects-container">
+            <!-- Projects will be loaded here -->
+            <div class="col-12 text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Project Details Modal -->
+        <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="projectModalLabel">Project Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="project-details">
+                        <!-- Project details will be loaded here -->
+                    </div>
+                    <div class="modal-footer">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="contribution-amount" placeholder="Amount">
+                                        <button class="btn btn-primary" id="contribute-button">Contribute</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 text-end">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-success d-none" id="release-funds-button">Release Funds</button>
+                                    <button type="button" class="btn btn-warning d-none" id="claim-refund-button">Claim Refund</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./index.js"></script>
+</body>
+</html>
